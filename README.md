@@ -6,4 +6,5 @@ why you ask ? to learn the details of what steps goes into compiling and flashin
 
 what will i use ? just a good old text editior and gcc compiler to genereate the output code 
 
-and stlink CLI utilty to program the STM32F746 board 
+and openocd to program the STM32F746 board link:https://github.com/xpack-dev-tools/openocd-xpack/releases
+

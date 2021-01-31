@@ -1,0 +1,76 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x08000000         0x00100000         xr
+SRAM             0x20000000         0x0001d000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD main.o
+LOAD stm32_startup.o
+
+.text           0x08000000      0x320
+ *(.isr_vector)
+ .isr_vector    0x08000000      0x1cc stm32_startup.o
+                0x08000000                vector
+ *(.text)
+ .text          0x080001cc       0xc4 main.o
+                0x080001cc                main
+ .text          0x08000290       0x90 stm32_startup.o
+                0x08000290                default_handler
+                0x08000296                reset_handler
+ *(.rodata)
+                0x08000320                . = ALIGN (0x4)
+                0x08000320                _etext = .
+
+.glue_7         0x08000320        0x0
+ .glue_7        0x08000320        0x0 linker stubs
+
+.glue_7t        0x08000320        0x0
+ .glue_7t       0x08000320        0x0 linker stubs
+
+.vfp11_veneer   0x08000320        0x0
+ .vfp11_veneer  0x08000320        0x0 linker stubs
+
+.v4_bx          0x08000320        0x0
+ .v4_bx         0x08000320        0x0 linker stubs
+
+.iplt           0x08000320        0x0
+ .iplt          0x08000320        0x0 stm32_startup.o
+
+.rel.dyn        0x08000320        0x0
+ .rel.iplt      0x08000320        0x0 stm32_startup.o
+
+.data           0x20000000        0x0 load address 0x08000320
+                0x20000000                _sdata = .
+ *(.data)
+ .data          0x20000000        0x0 main.o
+ .data          0x20000000        0x0 stm32_startup.o
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _edata = .
+
+.igot.plt       0x20000000        0x0 load address 0x08000320
+ .igot.plt      0x20000000        0x0 stm32_startup.o
+
+.bss            0x20000000        0x0 load address 0x08000320
+                0x20000000                _sbss = .
+ *(.bss)
+ .bss           0x20000000        0x0 main.o
+ .bss           0x20000000        0x0 stm32_startup.o
+                0x20000000                . = ALIGN (0x4)
+                0x20000000                _ebss = .
+OUTPUT(final.elf elf32-littlearm)
+
+.comment        0x00000000       0x7f
+ .comment       0x00000000       0x7f main.o
+                                 0x80 (size before relaxing)
+ .comment       0x0000007f       0x80 stm32_startup.o
+
+.ARM.attributes
+                0x00000000       0x33
+ .ARM.attributes
+                0x00000000       0x33 main.o
+ .ARM.attributes
+                0x00000033       0x33 stm32_startup.o
