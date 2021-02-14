@@ -1,8 +1,9 @@
+// base addres of the registers
 #define rcc_base 0x40023800
 #define gpiob_base 0x40020400
 
-#define rcc_cfgr (rcc_base + 0x08)
-#define rcc_cr (rcc_base + 0x00)
+// address of the required 
+
 #define rcc_ahb1enr (rcc_base + 0x30)
 #define gpiob_moder	(gpiob_base + 0x00)
 #define gpiob_ospeedr (gpiob_base + 0x08)	

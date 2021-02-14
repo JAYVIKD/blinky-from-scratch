@@ -143,7 +143,7 @@ void default_handler(void){
 }
 void reset_handler(void){
     // copy .data section to sram
-    uint32_t size = &(_edata) - &(_sdata);
+    uint32_t size = (uint32_t)&_edata - (uint32_t)&_sdata;
     uint32_t i;
     uint32_t *pDst = (uint32_t*)&_sdata;
     uint32_t *pSrc = (uint32_t*)&_etext;
