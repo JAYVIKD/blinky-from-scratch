@@ -156,7 +156,7 @@ void reset_handler(void){
     //init the .bss section to zero in sram
     size = &_ebss - &_sbss;
     pDst = (uint32_t*)&_sbss;
-     for(i =0 ; i<size; i++)
+     for(i =0 ; i<size; i++)e
     {
         *pDst++ = 0;
     }
